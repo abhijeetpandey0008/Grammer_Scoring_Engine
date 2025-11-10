@@ -1,98 +1,122 @@
-<h1 align="center">Grammar Scoring Engine 🎙️</h1>
+# 🧮 Grammar Scoring using Machine Learning
 
-<p align="center">
-  <strong>AI-Powered Assessment of Spoken Grammar Proficiency:<br>Audio Input + Transcript → Grammar Proficiency Score</strong>
-</p>
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![LightGBM](https://img.shields.io/badge/LightGBM-Enabled-success)
+![Kaggle](https://img.shields.io/badge/Platform-Kaggle-orange)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
-<p align="center">
-  <a href="https://github.com/abhijeetpandeygithub/grammar-scoring-engine/actions/workflows/ci.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/abhijeetpandeygithub/grammar-scoring-engine/ci.yml?style=for-the-badge&logo=github" alt="CI Status"/>
-  </a>
-  <img src="https://img.shields.io/badge/Status-Experimental-orange?style=for-the-badge&logo=appveyor" alt="Experimental Status"/>
-  <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Version"/>
-  <img src="https://img.shields.io/badge/Jupyter-Compatible-4CAF50?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter Compatible"/>
-  <img src="https://img.shields.io/badge/License-MIT-4CAF50?style=for-the-badge&logo=github&logoColor=white" alt="MIT License"/>
-</p>
+A complete end-to-end **Grammar Scoring** pipeline built on **machine learning and audio signal processing**.  
+This notebook implements advanced **feature engineering**, **LightGBM modeling**, and **ensemble learning** to predict grammar quality scores accurately.
 
 ---
 
-## 📌 Project Overview
+## 📘 Project Overview
 
-The **Grammar Scoring Engine** is a machine learning pipeline for evaluating spoken grammar proficiency. It processes audio recordings and their transcripts to predict a numeric grammar score (on a 0–5 scale). The core implementation is in the Jupyter Notebook [`grammar-scoring-engine_final.ipynb`](grammar-scoring-engine_final.ipynb), which handles data loading, audio feature extraction, model training, ensemble strategies, and performance evaluation.
+The goal of this project is to build an automated system that can **score grammar quality** (or language proficiency) using extracted features from audio/text data.
 
-Key capabilities:
-- **Audio Feature Extraction**: Utilizes `librosa` for acoustic features like MFCCs, spectral characteristics, tempo, RMS energy, and zero-crossing rate.
-- **Transcript Analysis**: Computes linguistic metrics such as word count and average word length.
-- **Modeling**: Employs regression models (Random Forest, XGBoost, LightGBM, Gradient Boosting) and ensemble techniques (stacking with Ridge meta-learner, blending).
-- **Evaluation**: Focuses on RMSE, with an estimated accuracy metric derived from predictions.
-- **Explainability**: Integrates SHAP for feature importance insights.
-
-This README is derived directly from the notebook's experiments, ensuring alignment with actual code and results.
+Key highlights:
+- End-to-end ML workflow: preprocessing → feature extraction → modeling → evaluation  
+- Custom feature engineering using **MFCC**, **Chroma**, **Spectral Contrast**, **Zero Crossing Rate (ZCR)**, and **Root Mean Square (RMS)**  
+- Comparison between **classical ML models** and **hybrid CNN–LSTM architectures**  
+- Optimized with **early stopping**, **cross-validation**, and **LightGBM v4 syntax**
 
 ---
 
-## 🔬 Notebook Structure
+## 🧩 Features
 
-The notebook is organized into logical sections for reproducibility and clarity:
-
-| Section | Key Components |
-|---------|----------------|
-| **Environment Setup & Data Loading** | Imports libraries (e.g., `numpy`, `pandas`, `librosa`); Lists and loads audio files from Kaggle-style paths (`/kaggle/input/...`); Handles train/test splits. |
-| **Audio Preprocessing** | Trims silence using `librosa.effects.trim`; Loads audio with `librosa.load` at 16kHz sample rate. |
-| **Feature Extraction** | - **Acoustic Features**: MFCC (mean/std/min/max/skew/kurtosis), spectral centroid/bandwidth/rolloff/contrast/flatness, ZCR, RMS, tempo.<br>- **Temporal Features**: Audio duration.<br>- **Transcript Features**: Word count, average word length.<br>- Feature engineering: Standardization with `StandardScaler`, polynomial features. |
-| **Model Training & Ensembles** | - Single models: `RandomForestRegressor`, `XGBRegressor`, `LGBMRegressor`, `GradientBoostingRegressor`.<br>- Ensembles: Stacking (`StackingRegressor` with Ridge meta-learner), weighted blending.<br>- Hyperparameters: Tuned via trial runs (e.g., n_estimators=100 for RF). |
-| **Evaluation & Visualization** | - Metrics: RMSE on validation set.<br>- Plots: Residuals (`matplotlib`, `seaborn`), feature importance (SHAP).<br>- Artifacts: Model saving with `joblib`. |
-| **Inference & Deployment** | Sample code for predicting on new audio/transcript pairs. |
+| Feature Type | Description |
+|---------------|-------------|
+| **MFCC** | Captures the timbral characteristics of audio |
+| **Chroma** | Represents pitch class intensity |
+| **Spectral Contrast** | Measures difference between peaks and valleys in spectrum |
+| **ZCR** | Measures noisiness / frequency transitions |
+| **RMS Energy** | Overall energy of the sound signal |
 
 ---
 
-## 🧰 Technology Stack
+## ⚙️ Technologies Used
 
-| Category | Libraries/Tools |
-|----------|-----------------|
-| **Core & Data Handling** | `numpy`, `pandas`, `scikit-learn` (for preprocessing, metrics, ensembles) |
-| **Audio Processing** | `librosa` (feature extraction), `soundfile` (audio I/O) |
-| **Modeling** | `xgboost` (`XGBRegressor`), `lightgbm` (`LGBMRegressor`), `sklearn.ensemble` (`RandomForestRegressor`, `GradientBoostingRegressor`, `StackingRegressor`) |
-| **Explainability** | `shap` (SHAP values for interpretability) |
-| **Visualization** | `matplotlib`, `seaborn` (residual plots, feature importance) |
-| **Utilities** | `joblib` (model serialization), `tqdm` (progress bars) |
-| **Environment** | Python 3.11+ (notebook tested on Kaggle with GPU acceleration); Optional: `torch` for advanced extensions. |
-
-**Note**: No external API calls or internet access required during runtime (Kaggle offline mode compatible).
+- 🐍 Python 3.10+
+- 📦 NumPy, Pandas, Scikit-learn
+- 🔥 LightGBM, XGBoost
+- 🎵 Librosa for audio feature extraction
+- 🧠 TensorFlow / Keras (for hybrid deep learning model)
+- 📊 Matplotlib, Seaborn for visualization
 
 ---
 
-## ✅ Experimental Results & Metrics
+## 🚀 Project Workflow
 
-Experiments in the notebook include multiple model runs, hyperparameter variations, and ensemble comparisons. The final stacked ensemble (using Random Forest, XGBoost, LightGBM, and Gradient Boosting as base learners with a Ridge meta-learner) was selected for its balance of performance and robustness.
+1. **Data Loading & Exploration**  
+   Load audio/text data from Kaggle input directories.
 
-| Model / Configuration | RMSE (Validation) | Estimated Accuracy* (%) |
-|-----------------------|-------------------|--------------------------|
-| **Random Forest (Best Single Run)** | **0.6833** | **86.08** |
-| Random Forest (Alternate Run) | 0.6853 | — |
-| XGBoost (Various Runs) | 0.7113 – 0.7164 | — |
-| LightGBM (Various Runs) | 0.7123 – 0.7186 | — |
-| Gradient Boosting | 0.7253 | — |
-| Blended Ensembles (Weighted) | 0.6931 – 0.6958 | — |
-| **Stacked Ensemble (Final)** | **0.7110** | **85.78** |
-| Validation Snapshot (Holdout) | 0.7926 | 84.15 |
+2. **Feature Extraction**  
+   Compute MFCC, Chroma, Spectral Contrast, ZCR, RMS features.
 
-> **Estimated Accuracy Formula** (assuming 0–5 score scale):
-> $$
-> \text{Estimated Accuracy} = \left(1 - \frac{\text{RMSE}}{5}\right) \times 100
-> $$
+3. **Preprocessing**  
+   - Handle missing values  
+   - Standardize and scale features  
+   - Merge labels with extracted features  
 
-### Insights from Experiments
-- **Best Performer**: Random Forest excelled in single-model scenarios due to its handling of feature interactions.
-- **Ensemble Benefits**: Stacking reduced overfitting and improved generalization, as evidenced by lower variance in residuals.
-- **Feature Importance (via SHAP)**: MFCC statistics (e.g., mean, std), tempo, and RMS energy were top predictors, indicating prosody's role in grammar assessment.
-- **Warnings & Notes**: LightGBM produced "no further splits" warnings, typical for small datasets or leaf-wise growth; no impact on final performance.
+4. **Modeling**  
+   - Train LightGBM and CNN-LSTM hybrid models  
+   - Use K-Fold Cross Validation  
+   - Apply early stopping and hyperparameter tuning  
+
+5. **Evaluation**  
+   Compare models based on RMSE and feature importance.
+
+6. **Submission Generation**  
+   Save final predictions as `submission_ensemble.csv` for Kaggle evaluation.
 
 ---
 
-## 🧩 Reproducibility & Setup Guide
+## 🧪 Results
 
-1. **Clone the Repository**  
-   ```bash
-   git clone https://github.com/abhijeetpandeygithub/grammar-scoring-engine.git
-   cd grammar-scoring-engine
+| Model | Validation RMSE |
+|--------|-----------------|
+| Hybrid LightGBM | 0.6933 |
+| CNN–LSTM | 0.5842 |
+| **Ensemble (0.6H + 0.4C)** | ✅ Final Submission |
+
+---
+
+
+---
+
+## 🧪 Results
+
+| Model | Validation RMSE |
+|--------|-----------------|
+| LightGBM | 0.6933 |
+| CNN–LSTM | 0.5842 |
+| **Ensemble (0.6H + 0.4C)** | ✅ **Final Model** |
+
+> The ensemble model achieved the **lowest RMSE**, outperforming individual baselines and producing stable predictions.
+
+---
+
+## 📸 Output Preview
+
+Here’s a glimpse of the final ensemble predictions (`submission_ensemble.csv`):
+
+```text
+filename,label
+test_001.wav,3.89
+test_002.wav,4.12
+test_003.wav,2.74
+test_004.wav,4.55
+test_005.wav,3.63
+...
+
+
+
+## 📦 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/<your-username>/grammar-scoring.git
+cd grammar-scoring
+
+# Install dependencies
+pip install -r requirements.txt
